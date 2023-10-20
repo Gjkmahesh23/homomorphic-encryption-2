@@ -1,0 +1,32 @@
+# import additional stuff needed later on:
+
+# import Paillier library
+from phe import paillier
+
+pubkey, privkey = paillier.generate_paillier_keypair(n_length=2048)
+
+m1 = 3.14159
+m2 = 10.01
+
+M1 = pubkey.encrypt(m1)
+M2 = pubkey.encrypt(m2)
+print("M1.ciphertext :",M1.ciphertext())
+print("M2.ciphertext :",M2.ciphertext())
+M3 = M1 + M2
+n1 = 2
+n2 = 0.125
+
+M4 = M1 * n1
+M5 = M1 + n2
+
+m3 = privkey.decrypt(M3)
+m4 = privkey.decrypt(M4)
+m5 = privkey.decrypt(M5)
+
+print("m3",m3)
+print("m4",m4)
+print("m5",m5)
+
+print("m1 + m2",m1 + m2)
+print("n1 * m1",n1 * m1)
+print("m1 + n2",m1 + n2)
